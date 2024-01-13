@@ -1,2 +1,2 @@
-# note-taker
-Project for DeltaHacksX
+# delta-hacks-x-v2
+For DeltaHacksX
