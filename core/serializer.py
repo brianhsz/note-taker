@@ -6,3 +6,4 @@ class UploadedNoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = UploadedNotes
         fields = ('id', 'title', 'content', 'uploaded_at')
+
