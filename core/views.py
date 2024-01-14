@@ -5,12 +5,14 @@ from rest_framework import status
 from .serializer import UploadedNoteSerializer
 from .models import UploadedNotes
 
-# Create your views here.
+
+# front page
 def front(request):
     context = {}
     return render(request, 'index.html', context)
 
 
+# getting and posting notes
 @api_view(['GET', 'POST'])
 def up_note(request):
 
@@ -27,6 +29,7 @@ def up_note(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# deleting notes
 @api_view(['DELETE'])
 def note_detail(request, pk):
     try:

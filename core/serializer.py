@@ -5,4 +5,5 @@ from .models import UploadedNotes
 class UploadedNoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = UploadedNotes
-        fields = ('id', 'title')
+        fields = ('id', 'title', 'content', 'uploaded_at')
+
