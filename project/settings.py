@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-!ecl0**6*f_b!qdwe)3891b-ffnm-wanannu#=x#(ogt0p9k2=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["http://localhost:3001", "http://localhost:3000", "127.0.0.1"]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 
     # My apps
     'core',
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -130,7 +132,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# # Disabling API view
+# Disabling API view
 # REST_FRAMEWORK = {
 #      'DEFAULT_RENDERER_CLASSES': (
 #          'rest_framework.renderers.JSONRenderer',
