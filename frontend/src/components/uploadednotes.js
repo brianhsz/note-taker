@@ -7,7 +7,10 @@ export default function UploadedNotes() {
   const [notes, setNewNotes] = useState(null);
   const [formNote, setFormNote] = useState({
     title: "",
+    content: "",
   });
+
+  const [file, setFile] = useState(null); // New state for handeling files
 
   useEffect(() => {
     getNotes();
@@ -41,11 +44,19 @@ export default function UploadedNotes() {
   }
 
   function createNote(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("title", formNote.title);
+    formData.append("content", formNote.content);
+    formData.append("file", file);
+
     axios({
       method: "POST",
       url: "/notes/",
-      data: {
-        title: formNote.title,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
       },
     }).then((response) => {
       getNotes();
@@ -55,16 +66,20 @@ export default function UploadedNotes() {
       title: "",
       content: "",
     });
-
-    event.preventDefault();
+    setFile(null);
   }
 
   function handleChange(event) {
-    const { value, name } = event.target;
-    setFormNote((prevNote) => ({
-      ...prevNote,
-      [name]: value,
-    }));
+    const { value, name, type } = event.target;
+
+    if (type === "file") {
+      setFile(event.target.files[0]);
+    } else {
+      setFormNote((prevNote) => ({
+        ...prevNote,
+        [name]: value,
+      }));
+    }
   }
 
   return (
@@ -72,7 +87,7 @@ export default function UploadedNotes() {
       <form className="create-note border-2">
         <input
           onChange={handleChange}
-          text={formNote.title}
+          type="text"
           name="title"
           placeholder="Title"
           value={formNote.title}
@@ -83,6 +98,7 @@ export default function UploadedNotes() {
           placeholder="Take a note..."
           value={formNote.content}
         />
+        <input type="file" onChange={handleChange} name="file" />
         <button onClick={createNote}>Create Post</button>
       </form>
       {notes &&
